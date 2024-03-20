@@ -1,0 +1,4 @@
+*.swp
+*.o
+mandelbrotcuda
+.DS_Store
