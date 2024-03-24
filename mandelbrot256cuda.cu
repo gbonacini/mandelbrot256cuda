@@ -21,6 +21,7 @@
  #include <algorithm>
  #include <random>
  #include <chrono>
+ #include <cstdlib>
  #include <math.h>
 
  #include <mandelbrot256cuda.hpp>
@@ -30,7 +31,9 @@ namespace mandelbrot256cuda {
  using std::chrono::system_clock,
        std::default_random_engine,
        std::shuffle,
-       std::cout;
+       std::cout,
+       std::cerr,
+       std::abort;
 
   __global__ void cudaRender(int* out, int pixels, int width, int height, int maxiter, Complex span, Complex begin ){
      auto calculate { [](Complex cmp, int maxiter) -> int {
@@ -64,7 +67,10 @@ namespace mandelbrot256cuda {
      : width{w}, height{h}, zoom{z}, deltax{ dx }, deltay{ dy }, pixels{w * h}, maxiter{max}, cudaBlocks{blocks}, 
        center(-0.8 + deltax / 10.0, 0.0 + deltay / 10.0), span(2.7/zoom, -(5/3.0)*2.7*height/width/zoom), begin { center - span/2.0}
  {
-    cudaMallocManaged(&out, pixels * sizeof(int)); 
+    if(cudaMallocManaged(&out, pixels * sizeof(int)) != cudaSuccess){
+	cerr << "Error: allocating unified memory\n";
+	abort();
+    }
  }
 
  MandelbrotShell::~MandelbrotShell(void)  noexcept{
