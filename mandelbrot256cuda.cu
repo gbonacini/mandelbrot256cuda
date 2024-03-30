@@ -67,6 +67,19 @@ namespace mandelbrot256cuda {
      : width{w}, height{h}, zoom{z}, deltax{ dx }, deltay{ dy }, pixels{w * h}, maxiter{max}, cudaBlocks{blocks}, 
        center(-0.8 + deltax / 10.0, 0.0 + deltay / 10.0), span(2.7/zoom, -(5/3.0)*2.7*height/width/zoom), begin { center - span/2.0}
  {
+
+    int cudaDetectedDevices  { 0 };
+    cudaError_t errorId      { cudaGetDeviceCount(&cudaDetectedDevices) };
+    if(errorId != cudaSuccess) {
+	cerr << "Error probing Cuda devices: " << errorId << " - " << cudaGetErrorString(errorId) << "\n";
+	abort();
+    }
+
+    if (cudaDetectedDevices == 0) {
+	cerr << "Error: No Cuda device found\n";
+	abort();
+    }
+
     if(cudaMallocManaged(&out, pixels * sizeof(int)) != cudaSuccess){
 	cerr << "Error: allocating unified memory\n";
 	abort();
