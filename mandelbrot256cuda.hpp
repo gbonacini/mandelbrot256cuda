@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // mandelbrot256cuda - a command line program able to render Mandelbrot set 
-//                on terminal supporting ANSI ecape sequences.
+//                     on terminal supporting ANSI ecape sequences.
 // Copyright (C) 2024  Gabriele Bonacini
 //
 // This program is free software for no profit use, then you can redistribute 
@@ -17,14 +17,12 @@
 // A commercial license is also available for a lucrative use.
 // ---------------------------------------------------------------------------
  
- 
  #pragma once
 
  #include <vector>
  #include <initializer_list>
 
  #include <thrust/complex.h>
-
 
  namespace mandelbrot256cuda {
 
@@ -44,7 +42,6 @@
                  maxiter,
 		 cudaBlocks,
 		 *out { nullptr };
-
 
          Complex center,
                  span,
@@ -70,8 +67,6 @@
         void       setDeltaY(int dy)                       noexcept;
         void       setMaxiter(int max)                     noexcept;
         void       setCustomPalette(PaletteInit init)      noexcept;
-
-
  };
 
  } // End Namespace

@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------------
 // mandelbrot256cuda - a command line program able to render Mandelbrot set 
-//                on terminal supporting ANSI ecape sequences.
+//                     on terminal supporting ANSI ecape sequences.
 // Copyright (C) 2024  Gabriele Bonacini
 //
 // This program is free software for no profit use, then you can redistribute 
@@ -138,9 +138,9 @@ namespace mandelbrot256cuda {
  }
 
  void MandelbrotShell::print(void) const noexcept{
-     for(int pix = 0 ; pix < pixels; ++pix) {
+     for(int pix { 0 }; pix < pixels; ++pix) {
            unsigned char colour { out[pix]  > 0 ? palette[out[pix]  % (palette.size() - 1)] : static_cast<unsigned char>(0x00) };
-           const    int  x { pix % width }; 
+           const    int  x      { pix % width }; 
 
            cout << "\033[48;5;" << static_cast<int>(colour) << "m \033[m";
            if(x + 1 == width) cout << '\n';
