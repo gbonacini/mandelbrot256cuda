@@ -22,6 +22,8 @@
  #include <random>
  #include <chrono>
  #include <cstdlib>
+
+ #include <cuda_runtime.h>
  #include <math.h>
 
  #include <mandelbrot256cuda.hpp>
