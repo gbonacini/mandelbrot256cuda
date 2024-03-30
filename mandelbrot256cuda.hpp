@@ -20,7 +20,6 @@
  
  #pragma once
 
- #include <complex>
  #include <vector>
  #include <initializer_list>
 
@@ -32,8 +31,6 @@
  using Complex=thrust::complex<double>;
  using Palette=std::vector<unsigned char>;
  using PaletteInit=std::initializer_list<unsigned char>;
-
-  __global__  void cudaRender(int* out, int pixels, int width, int height, int maxiter, Complex span, Complex begin ) ;
 
  class MandelbrotShell{
      private:
